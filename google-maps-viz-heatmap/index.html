@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8">
   <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization,geometry&key=AIzaSyBvSR-z-DPXEfccE9bwj-FdH1fbsQl60Qg"></script>-->
-  <!--<script type="text/javascript" src="Google.min.js"></script>-->
+  
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="Google.min.js"></script>
   <script src="data.js"></script>
   <style>
     body {
@@ -25,11 +26,13 @@
     <div id="map-canvas"></div>
     <script type="text/javascript">
 
+    GoogleMapsLoader.KEY = 'AIzaSyBvSR-z-DPXEfccE9bwj-FdH1fbsQl60Qg';
+    GoogleMapsLoader.SENSOR = true;
+    GoogleMapsLoader.LIBRARIES = ['geometry', 'visualization'];
 
-    $.getScript( "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization,geometry&key=AIzaSyBvSR-z-DPXEfccE9bwj-FdH1fbsQl60Qg" )
-    .done(function( script, textStatus ) {
 
-      var myLatlng = new google.maps.LatLng(37.774546,-122.433523);
+    GoogleMapsLoader.load(function(google) {
+        var myLatlng = new google.maps.LatLng(37.774546,-122.433523);
 
         // Attach a map to the DOM Element, with the defined settings
         var map = new google.maps.Map(document.getElementById("map-canvas"), {
@@ -44,68 +47,13 @@
         });
 
         var heatmap = new google.maps.visualization.HeatmapLayer({
-          data: data
+            data: data,
+            gradient: gradient,
+            radius: 10
         });
-        heatmap.setMap(map);      
-        
-    })
-    .fail(function( jqxhr, settings, exception ) {
-        // $( "div.log" ).text( "Triggered ajaxError handler." );
-    });    
+        heatmap.setMap(map); 
 
-    // GoogleMapsLoader.KEY = 'AIzaSyBvSR-z-DPXEfccE9bwj-FdH1fbsQl60Qg';
-    // GoogleMapsLoader.SENSOR = true;
-    // GoogleMapsLoader.LIBRARIES = ['geometry', 'visualization'];
+    });
 
-
-
-    // GoogleMapsLoader.load(function(google) {
-      
-    //   var myLatlng = new google.maps.LatLng(37.774546,-122.433523);
-
-    //   var map = new google.maps.Map($('#map-canvas'), {
-    //       zoom: 2, 
-    //       center: myLatlng,
-    //       mapTypeId: google.maps.MapTypeId.ROADMAP
-    //   });
-
-    //   $.each(data, function(i,e){
-    //     e.location = new google.maps.LatLng(e.latitude, e.longitude);
-    //   });
-
-    //   var heatmap = new google.maps.visualization.HeatmapLayer({
-    //     data: data
-    //   });
-    //   // heatmap.setMap(map);
-
-    // });
-
-    // // console.log(data);
-    // // if HTML DOM Element that contains the map is found...
-    // if (document.getElementById('map-canvas')){
-
-    //     console.log(google.maps);
-     
-    //     // Coordinates to center the map
-    //     var myLatlng = new google.maps.LatLng(37.774546,-122.433523);
-
-        // Attach a map to the DOM Element, with the defined settings
-        // var map = new google.maps.Map(document.getElementById("map-canvas"), {
-        //     zoom: 2, 
-        //     center: myLatlng,
-        //     mapTypeId: google.maps.MapTypeId.ROADMAP,
-        //     styles: styles
-        // });
-
-        // $.each(data, function(i,e){
-        //   e.location = new google.maps.LatLng(e.latitude, e.longitude);
-        // });
-
-    //     var heatmap = new google.maps.visualization.HeatmapLayer({
-    //       data: data
-    //     });
-    //     heatmap.setMap(map);
-
-    // }
     </script>
 </html>
