@@ -44,7 +44,9 @@
         });
 
         var heatmap = new google.maps.visualization.HeatmapLayer({
-          data: data
+          data: data,
+          gradient: gradient,
+          radius: 10
         });
         heatmap.setMap(map);      
         
